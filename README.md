@@ -7,99 +7,146 @@
 ## Technologies & Packages Used
 
 - [Blazor](https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor) - Frontend.
-- [ASP.NET 9](https://dotnet.microsoft.com/en-us/apps/aspnet) - Backend.
-- [Entity Framework 9](https://learn.microsoft.com/en-us/ef/) - Database Access with Unit Of Work and Repository patterns.
-- [EntityFrameworkCore Triggered](https://github.com/koenbeuk/EntityFrameworkCore.Triggered) - Database Triggers which are agnostic to the database provider.
-- [User Secrets](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets) - Securely store secrets in DEV.
-- [GuardClauses](https://github.com/ardalis/GuardClauses) - Validation Helper.
-- [Ardalis.Result](https://github.com/ardalis/Result) - A result abstraction that can be mapped to HTTP response codes if needed.
-- [FastEndpoints](https://fast-endpoints.com/) - is a developer friendly alternative to Minimal APIs & MVC.
-- [Serilog](https://serilog.net/) - Framework for structured tracable logging to Console and Files.
-- [FluentValidation](https://docs.fluentvalidation.net/en/latest/) - is a .NET library for building strongly-typed validation rules.
-- [Blazored.FluentValidation](https://docs.fluentvalidation.net/en/latest/) - Blazor + Fluentvalidation.
-- [bUnit](https://bunit.dev) - Blazor Component Testing.
-- [xUnit](https://xunit.net) - (Unit) Testing.
-- [nSubstitute](https://nsubstitute.github.io) - Mocking for testing.
-- [Shouldly](https://docs.shouldly.org) - Helper for testing.
-- [Destructurama.Attributed](https://github.com/destructurama/attributed) - Masking for sensitive datatypes.
+- [ASP.NET Core 10](https://dotnet.microsoft.com/en-us/apps/aspnet) - Backend.
+- [Entity Framework Core 10](https://learn.microsoft.com/en-us/ef/core/) - Database access.
+- [EntityFrameworkCore.Triggered](https://github.com/koenbeuk/EntityFrameworkCore.Triggered) - Database-agnostic Entity Framework Core triggers.
+- [User Secrets](https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets) - Securely store secrets during development.
+- [GuardClauses](https://github.com/ardalis/GuardClauses) - Validation helper.
+- [Ardalis.Result](https://github.com/ardalis/Result) - Result abstraction that can be mapped to HTTP response codes.
+- [FastEndpoints](https://fast-endpoints.com/) - Developer-friendly alternative to Minimal APIs and MVC.
+- [Serilog](https://serilog.net/) - Structured logging to the console, files, and other sinks.
+- [FluentValidation](https://docs.fluentvalidation.net/en/latest/) - Strongly typed validation rules.
+- [Blazored.FluentValidation](https://github.com/Blazored/FluentValidation) - FluentValidation integration for Blazor.
+- [bUnit](https://bunit.dev/) - Blazor component testing.
+- [xUnit](https://xunit.net/) - Unit testing.
+- [NSubstitute](https://nsubstitute.github.io/) - Mocking for testing.
+- [Shouldly](https://docs.shouldly.org/) - Assertion library for testing.
+- [Destructurama.Attributed](https://github.com/destructurama/attributed) - Masking sensitive data in structured logging.
 
-## Software 
-1. Install [Rider](https://www.jetbrains.com/rider/) or [Visual Studio](https://visualstudio.microsoft.com/)
-2. Make sure you have [ASP.NET 9](https://dotnet.microsoft.com/en-us/download) installed (comes with Rider and Visual Studio) 
+## Software
+
+1. Install [Rider](https://www.jetbrains.com/rider/), [Visual Studio](https://visualstudio.microsoft.com/) or [Visual Studio Code](https://code.visualstudio.com/).
+2. Make sure you have the [.NET 10 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/10.0) installed.
+
+You can verify your installed SDK using:
+
+```bash
+dotnet --version
+```
 
 ## Installation Instructions
 
-1. Clone the repository
+1. Clone the repository.
 
-2. Open the `Rise.sln` file in [Rider](https://www.jetbrains.com/rider/), [Visual Studio](https://visualstudio.microsoft.com/) or  [Visual Studio Code](https://code.visualstudio.com/). (we prefer Rider, but you're free to choose.)
+2. Open the `Rise.sln` file in [Rider](https://www.jetbrains.com/rider/), [Visual Studio](https://visualstudio.microsoft.com/) or [Visual Studio Code](https://code.visualstudio.com/).
 
-3. Run the project using the `Rise.Server` project as the startup project
+   We prefer Rider, but you're free to choose.
 
-4. The project should open in your default browser on port 5001.
+3. Run the project using `Rise.Server` as the startup project.
 
-5. The database (SQLite) will be created. However you will have to switch the database provider of your choosing 
+4. The project should open in your default browser on port `5001`.
+
+5. The SQLite database will be created automatically. However, you will have to switch to a database provider of your choosing.
 
    1. **SQL Server**
 
-      Package: Microsoft.EntityFrameworkCore.SqlServer
+      Package: `Microsoft.EntityFrameworkCore.SqlServer`
 
-      🔗 [NuGet Link](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/)
+      [NuGet](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/)
 
    2. **MariaDB**
 
-      Package: Pomelo.EntityFrameworkCore.MySql
+      Package: `Pomelo.EntityFrameworkCore.MySql`
 
-      🔗 [NuGet Link](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql/)
+      [NuGet](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql/)
 
    3. **PostgreSQL**
 
-      Package: Npgsql.EntityFrameworkCore.PostgreSQL
+      Package: `Npgsql.EntityFrameworkCore.PostgreSQL`
 
-      🔗 [NuGet Link](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL/)
+      [NuGet](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL/)
 
-   4. Mongo etc... 
+   4. Other providers such as MongoDB can also be used if required.
 
-## Creation of the database
+## Creation of the Database
 
-Is done by the app itself using migrations. To add and remove migrations, install the dotnet ef tool globally by running the following command in your terminal (only do this once)
+The database is created by the application itself using Entity Framework Core migrations.
 
-```
+To add and remove migrations, install the `dotnet-ef` tool globally:
+
+```bash
 dotnet tool install --global dotnet-ef
+```
+
+You only need to do this once.
+
+If you already have `dotnet-ef` installed, you can update it using:
+
+```bash
+dotnet tool update --global dotnet-ef
 ```
 
 ## Migrations
 
-Adapting the database schema can be done using migrations. To create a new migration, run the following command in the `src` folder
+Database schema changes are managed using Entity Framework Core migrations.
 
-```
+To create a new migration, run the following command from the `src` folder:
+
+```bash
 dotnet ef migrations add YourMigrationName --startup-project Rise.Server --project Rise.Persistence
 ```
 
-And then update the database using the following command, or run the `Rise.Server`
+Then update the database using:
 
-```
+```bash
 dotnet ef database update --startup-project Rise.Server --project Rise.Persistence
 ```
 
-## Usefull Commands
+Alternatively, simply run `Rise.Server` if the application automatically applies migrations during startup.
 
-In the `src/Rise.Server` folder
+## Useful Commands
 
-`dotnet watch --non-interactive` 
+Run these commands from the `src/Rise.Server` folder.
 
-The `dotnet watch` command is a file watcher. When it detects a change, it runs the `dotnet run` command or a specified `dotnet` command. If it runs `dotnet run`, and the change is supported for [hot reload](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-watch#hot-reload), it hot reloads the specified application. If the change isn't supported, it restarts the application. This process enables fast iterative development from the command line.
+### Watch
 
-`dotnet run`
+```bash
+dotnet watch --non-interactive
+```
 
-The `dotnet run` command provides a convenient option to run your application from the source code with one command. It's useful for fast iterative development from the command line. The command depends on the [`dotnet build`](https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-build) command to build the code. Any requirements for the build apply to `dotnet run` as wel
+The `dotnet watch` command watches your source files for changes.
 
-`dotnet clean `- you won't need this often
+When a change is detected, it either applies Hot Reload or restarts the application when the change cannot be applied dynamically. This enables fast iterative development from the command line.
 
-The `dotnet clean` command cleans the output of the previous build. It's implemented as an [MSBuild target](https://learn.microsoft.com/en-us/visualstudio/msbuild/msbuild-targets), so the project is evaluated when the command is run. Only the outputs created during the build are cleaned. Both intermediate (*obj*) and final output (*bin*) folders are cleaned.
+### Run
+
+```bash
+dotnet run
+```
+
+The `dotnet run` command builds and runs the application directly from the source code.
+
+### Clean
+
+```bash
+dotnet clean
+```
+
+You generally won't need this command often.
+
+It cleans the output of previous builds, including the intermediate `obj` and final `bin` directories.
 
 ## Authentication
 
-Authentication and authorization is present, you'll host and maintain the user accounts in your own database without any external identity provider. You can login with the following test users with the password `A1b2C3!`
+Authentication and authorization are included.
+
+User accounts are hosted and maintained in the application's own database without requiring an external identity provider.
+
+You can log in using the following test users with the password:
+
+```text
+A1b2C3!
+```
 
 ### Users
 
@@ -111,13 +158,13 @@ Authentication and authorization is present, you'll host and maintain the user a
 
 ### Roles
 
-There are 3 built-in roles, but adjust as needed
+There are three built-in roles, but these can be adjusted as needed:
 
 - Technician
 - Secretary
 - Administrator
 
-### Use cases
+### Use Cases
 
 - Register
 - Login
@@ -126,11 +173,13 @@ There are 3 built-in roles, but adjust as needed
 
 ## Solution Structure Overview
 
-The template is designed as a boilerplate or template for .NET solutions, following best practices for structuring projects, separation of concerns, and maintainability. Here's a breakdown of the solution structure and its workings, explained:
+The template is designed as a boilerplate for .NET 10 solutions and follows established practices for structuring projects, separation of concerns, and maintainability.
 
-When you open the solution, you’ll notice it’s organized into multiple projects, which is a common approach in large, enterprise-level applications. Each project within the solution has a specific responsibility. This approach is based on the **Clean Architecture**, **Domain-Driven Design (DDD)** and **Vertical Slicing**  principles. The goal is to keep different aspects of the application separated and independent, making it easier to scale, maintain, and test.
+The architecture combines concepts from **Clean Architecture**, **Domain-Driven Design (DDD)** and **Vertical Slicing**.
 
-Here are the main projects in the solution:
+The goal is to keep different aspects of the application separated and independent, making the application easier to maintain, test and extend.
+
+The main projects are:
 
 1. **Domain**
 2. **Services**
@@ -138,153 +187,221 @@ Here are the main projects in the solution:
 4. **Server**
 5. **Client**
 6. **Shared**
+7. **Testing Projects**
 
-Let’s look at each of these in more detail:
+---
 
-------
+### 1. Domain Project
 
-### 1. **Domain Project**
+**Folder:** `Domain`
 
-**Folder**: `Domain`
+**Purpose:** The **Domain** project contains the core business logic of the application.
 
-**Purpose**: The **Domain** project holds the core logic of the application. It defines the business rules, which are independent of the UI, database, or any external technology. The principle here is to keep the domain logic isolated, making sure it’s not affected by external frameworks or infrastructure.
+It defines business rules independently from the UI, database and external technologies. The goal is to ensure that domain logic is not coupled to infrastructure or frameworks.
 
-**Typical Contents**:
+**Typical Contents:**
 
-- **Entities**: Classes that represent the core objects of the application, such as `Order`, `Customer`, or `Product`.
+- **Entities**: Classes representing core concepts such as `Order`, `Customer` or `Product`.
+- **Value Objects**: Immutable objects representing concepts such as `Money` or `Address`.
 
-- **Value Objects**: Immutable objects that represent a concept (like `Money` or `Address`).
+> Value Objects are currently not provided in the template. You can read more in the [Domain-Driven Design course material](https://hogent-web.github.io/csharp/chapters/03/slides/index.html#75).
 
-  > Currently not provided in the template, but you can read more here: [Domain Driven Design - Best Practises](https://hogent-web.github.io/csharp/chapters/03/slides/index.html#75)
+**Why this separation?**
 
-**Why this separation?**: Keeping the domain logic separate ensures that the business rules remain consistent even if the application’s presentation or infrastructure changes. This allows for flexibility and ensures that changes to other parts of the system don't break the business logic.
+Keeping domain logic separate ensures that business rules remain consistent even when the application's presentation, persistence or infrastructure changes.
 
-------
+---
 
-### 2. **Services Project**
+### 2. Services Project
 
-**Folder**: `Services`
+**Folder:** `Services`
 
-**Purpose**: The **Services** project is responsible for the application-specific logic, such as orchestrating use cases, handling commands, and queries, and processing workflows. It acts as an intermediary between the **Domain** and the **Infrastructure** or **API** layers.
+**Purpose:** The **Services** project contains application-specific logic.
 
-**Typical Contents**:
+It orchestrates use cases, commands, queries and workflows and acts as an intermediary between the **Domain** and external layers.
 
-- **Use Cases**: These classes are responsible for specific actions in the system, like creating an order or processing a payment.
+**Typical Contents:**
 
-**Why this separation?**: This project enforces the **Separation of Concerns (SoC)**. It also makes testing easier, as this layer can be unit tested without worrying about external dependencies. 
+- **Use Cases**: Classes responsible for specific operations, such as creating an order or processing a payment.
 
-> Note that we can swap out the API for something else, for example a console application and the business rules will still apply.
->
-> We do not recommend abstracting your database as we see it as a migration to another database provider, not an abstraction. Read more about it [Should you Abstract the Database ](https://enterprisecraftsmanship.com/posts/should-you-abstract-database/). However you will have to switch to a real database provider not SQLite.
+**Why this separation?**
 
-------
+This project enforces **Separation of Concerns (SoC)** and makes application logic easier to test independently from infrastructure.
 
-### 3. **Persistence Project**
+The API could, for example, be replaced by a console application without changing the underlying business rules.
 
-**Folder**: `Persistence`
+> We do not recommend abstracting Entity Framework Core behind a generic repository solely to make the database provider replaceable. Changing database providers should be treated as a migration rather than requiring another abstraction layer. See [Should you Abstract the Database?](https://enterprisecraftsmanship.com/posts/should-you-abstract-database/).
 
-**Purpose**: The **Persistence** project deals with Database mappings and database migrations, that's it.
+The SQLite database included with the template is intended for development. You should switch to an appropriate production database provider.
 
-**Typical Contents**:
+---
 
-- **Configurations**: Entity configurations, for example how a product is mapped to a table in SQL, using Entity Framework Core.
-- **Data Migrations**: Scripts or classes for evolving the database schema over time.
-- **Triggers**: Stuff that needs to happen when something is saved or retrieved from the database. It's rather optional but these triggers are database agnostic (they will work for any provider e.g. MariaDb, Microsoft SQL Server,... )
+### 3. Persistence Project
 
-**Why this separation?**: So it's easier to find the configurations and keep them out of the **Domain** logic, Domain classes should **not** know how they're stored.
+**Folder:** `Persistence`
 
-------
+**Purpose:** The **Persistence** project contains database mappings, migrations and persistence-related configuration.
 
-### 4. **Server Project**
+**Typical Contents:**
 
-**Folder**: `Server`
+- **Configurations**: Entity Framework Core entity configurations describing how domain entities are persisted.
+- **Migrations**: Entity Framework Core migrations used to evolve the database schema.
+- **Triggers**: Logic executed when entities are saved or retrieved. These triggers are database-provider agnostic and can therefore work with SQL Server, MariaDB, PostgreSQL and other supported providers.
 
-**Purpose**: The **API** project is the entry point for the application, where the HTTP endpoints are defined. It handles requests from clients (via RESTful HTTP requests) and returns responses. It uses **FastEndspoints** to expose application functionality to the outside world.
+**Why this separation?**
 
-**Typical Contents**:
+Persistence concerns are kept outside the **Domain** project.
 
-- **Endpoints**: These handle HTTP requests and responses. They receive requests, pass them to the appropriate application service, and return the result.
-- **Processors**: Custom components that handle cross-cutting concerns such as logging, or error handling.
-- **Dependency Injection Configuration**: The **Server** project contains the setup for the dependency injection container, where the various services and other dependencies are registered.
-- **Serving the Blazor Client** : If no endspoints are found, the **Server** returns the Blazor WebAssembly (WASM) **Client**, it's rather optional but it makes hosting a lot easier (No CORS issues etc.)
+Domain entities should not need to know how or where they are stored.
 
-**Centralized Response Handling**:
+---
 
-You might notice something interesting about how endpoints send responses. In `Program.cs`, the FastEndpoints configuration includes `ep.DontAutoSendResponse()`. This setting disables the default behavior where an endpoint would immediately send back whatever it returns.
+### 4. Server Project
 
-So how are responses sent? We use a custom **Post-Processor** called `GlobalResponseSender`. This processor runs after every endpoint and is responsible for creating the final HTTP response. It takes the object returned by your endpoint—typically an `Ardalis.Result`—and intelligently maps it to the correct HTTP status code.
+**Folder:** `Server`
+
+**Purpose:** The **Server** project is the entry point of the backend application.
+
+It exposes HTTP endpoints, processes incoming requests and returns responses to clients.
+
+The project uses **FastEndpoints** to expose application functionality.
+
+**Typical Contents:**
+
+- **Endpoints**: Handle HTTP requests and responses.
+- **Processors**: Handle cross-cutting concerns such as logging and error handling.
+- **Dependency Injection Configuration**: Registers services and application dependencies.
+- **Blazor Client Hosting**: If no API endpoint matches the request, the server can serve the Blazor WebAssembly client. This simplifies deployment and avoids unnecessary CORS configuration.
+
+### Centralized Response Handling
+
+You might notice something interesting about how endpoints send responses.
+
+In `Program.cs`, the FastEndpoints configuration contains:
+
+```csharp
+ep.DontAutoSendResponse();
+```
+
+This disables FastEndpoints' default automatic response handling.
+
+Instead, the application uses a custom **Post-Processor** called `GlobalResponseSender`.
+
+This processor runs after endpoints and is responsible for creating the final HTTP response. It takes the object returned by the endpoint—typically an `Ardalis.Result`—and maps it to the appropriate HTTP status code.
 
 For example:
-- If your endpoint returns a successful `Result<ProductDto>`, the processor creates a `200 OK` response containing the product data.
-- If it returns `Result.Invalid(errors)`, the processor creates a `400 Bad Request` response with the validation errors.
-- If it returns `Result.NotFound()`, it becomes a `404 Not Found` response.
 
-This pattern is powerful because it keeps your endpoint logic clean and focused on its core task, while ensuring all your API responses are consistent and handled in one central place.
+- `Result<ProductDto>` → `200 OK`
+- `Result.Invalid(errors)` → `400 Bad Request`
+- `Result.NotFound()` → `404 Not Found`
 
-**Why this separation?**: The **API** layer provides a clean separation between the user interface (UI) and the business logic. This project acts as the boundary between your back-end system and the outside world, and it enforces that external clients (e.g., mobile apps or front-end websites) communicate in a consistent and defined way.
+This keeps endpoint implementations focused on their use case while ensuring HTTP responses are handled consistently in one central location.
 
-------
+**Why this separation?**
 
-### 5. **Client Project**
+The **Server** project provides a clear boundary between clients and the application's business logic.
 
-**Folder**: `Client` 
-
-A Blazor Web Assembly Standalone client, just like React, Vue, Svelte, Angular,... but written in C#. 
+External clients such as mobile applications, web applications or other services communicate with the application through a consistent HTTP API.
 
 ---
 
-### 6. **Shared Project**
+### 5. Client Project
 
-The **Shared** project is the glue between the **Client** and the **Server**. It decouples the Domain from the the Client, therefore we can still adjust the database , Services and Domain layer without breaking any clients. If we don't remove properties from the Data Transfer Objects (**DTO**)
+**Folder:** `Client`
 
-- **Service Interfaces**: The contract between the **Client** and **API**.
-- **Data Transfer Objects**: Simple classes without any domain logic. They're used to transfer data from the **API** to the **Client**.
+The **Client** project is a standalone Blazor WebAssembly application.
 
-------
-
-### 7. **Testing Projects**
-
-**Folder**: `Client.Tests`, ``Services.Tests` and `Domain.Tests`
-
-While not always included in the base template, most well-architected solutions should have dedicated testing projects, typically organized into **Unit Tests**, **Integration Tests**, and possibly **End-to-End Tests**.
-
-- **Unit Tests**: Test individual components (usually found in the `Domain` or `Client` layers) in isolation from dependencies.
-
-- **Integration Tests**: Ensure different parts of the system work together correctly (e.g., API and database).
-
-  > We did not provide any integration tests, these are for you to figure out. But you can take a look [here](https://fast-endpoints.com/docs/integration-unit-testing#integration-testing) to get you in the right direction.
-
-By separating the tests into their own projects, you ensure that they remain maintainable, modular, and focused on the specific functionality being tested.
+It serves the same architectural role as frontend applications written with frameworks such as React, Vue, Svelte or Angular, but is written in C# and runs on WebAssembly.
 
 ---
 
-### 8. **Cross-Cutting Concerns**
+### 6. Shared Project
 
-In some solutions, you may see additional projects or services to handle **cross-cutting concerns** like **logging**, **caching**, **authorization**, or **exception handling**. These concerns can be plugged into multiple layers of the solution but are typically handled in the **Persistence** / **Infrastructure** and **Server** projects.
+**Folder:** `Shared`
 
-------
+The **Shared** project contains the contracts shared between the **Client** and **Server**.
 
-### Key Concepts Explained
+It decouples the Client from the Domain model. This allows the Domain, Services and Persistence layers to evolve without directly exposing domain entities to external clients.
 
-1. **Separation of Concerns (SoC)**: Each project in the solution has a single, well-defined responsibility. By separating concerns, changes in one part of the system (e.g., switching databases) do not ripple through the entire codebase.
-2. **Dependency Injection (DI)**: This design pattern is used to inject dependencies into classes. The **API** project often configures DI, so classes get the services or repositories they need without creating them directly. This promotes loose coupling and makes the code easier to test.
-3. **Domain-Driven Design (DDD)**: The structure of the **Domain** project follows DDD principles, where the business rules and logic are core to the application and should be isolated from infrastructure concerns. This keeps your business logic intact even as external technologies evolve.
+As long as existing API contracts remain compatible, internal implementation details can change without breaking clients.
 
-------
+**Typical Contents:**
 
-### Conclusion
+- **Service Interfaces**: Contracts between the **Client** and **Server/API**.
+- **Data Transfer Objects (DTOs)**: Simple data structures used to transfer information between the API and its clients. DTOs should not contain domain logic.
 
-The `dotnet-template` solution is structured to encourage scalability, maintainability, and testability. Each project serves a distinct purpose:
+---
 
-- **Domain** defines core business logic.
-- **Services** manages use cases and orchestrates the flow of information.
-- **Persistence** handles the interaction with external systems and data storage.
-- **API** exposes the functionality to the outside world via HTTP.
-- **Client** a User Interface that could be swapped if need be.
+### 7. Testing Projects
+
+**Folders:**
+
+- `Client.Tests`
+- `Services.Tests`
+- `Domain.Tests`
+
+Testing is separated into dedicated projects to keep tests modular and focused on the components they verify.
+
+Typical test categories include:
+
+- **Unit Tests**: Test individual classes or components in isolation.
+- **Component Tests**: Test Blazor components using bUnit.
+- **Integration Tests**: Verify that multiple parts of the application work together correctly, such as the API and database.
+- **End-to-End Tests**: Verify complete application workflows from a user's perspective.
+
+> Integration tests are not provided by the template. You are expected to implement these yourself. The [FastEndpoints integration testing documentation](https://fast-endpoints.com/docs/integration-unit-testing#integration-testing) provides a useful starting point.
+
+---
+
+### 8. Cross-Cutting Concerns
+
+Cross-cutting concerns are functionality that affects multiple parts of the application.
+
+Examples include:
+
+- Logging
+- Caching
+- Authentication
+- Authorization
+- Validation
+- Exception handling
+
+These concerns are typically implemented in the **Server** and **Persistence** projects or through reusable services.
+
+---
+
+## Key Concepts Explained
+
+1. **Separation of Concerns (SoC)**  
+   Each project has a well-defined responsibility. Changes to one part of the system should have minimal impact on unrelated parts.
+
+2. **Dependency Injection (DI)**  
+   Dependencies are provided to classes rather than created directly by them. The **Server** project acts as the composition root where most dependencies are registered.
+
+3. **Domain-Driven Design (DDD)**  
+   Business rules belong in the **Domain** and should remain independent from infrastructure and presentation concerns.
+
+4. **Vertical Slicing**  
+   Application functionality is organized around use cases or features rather than forcing all functionality into broad technical layers.
+
+---
+
+## Conclusion
+
+The `Rise` solution is structured to encourage scalability, maintainability and testability.
+
+Each project has a distinct responsibility:
+
+- **Domain** defines the core business rules.
+- **Services** implements and orchestrates application use cases.
+- **Persistence** handles Entity Framework Core configuration and database persistence.
+- **Server** exposes the application through HTTP and hosts the backend.
+- **Client** provides the Blazor WebAssembly user interface.
+- **Shared** defines contracts between the Client and Server.
+- **Tests** verify the behavior of the individual layers and the application as a whole.
 
 ## Course
 
-There is .NET course from 1-2 years ago which is no longer maintained but still relevant. 
+There is a .NET course from previous academic years. Although it is no longer actively maintained, much of the material is still relevant:
 
 https://hogent-web.github.io/csharp/
-
